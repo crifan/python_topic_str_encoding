@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<bibliography
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:mathml="http://www.w3.org/1998/Math/MathML"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:svg="http://www.w3.org/2000/svg"
+
+    xml:id="reference">
+
+<bibliomixed xml:id="ref.big5_tw_code_table">
+  <bibliosource><link xl:href="http://ash.jp/code/cn/big5tbl.htm">Big5 (Traditional Chinese) character code table</link></bibliosource>
+  <author>ash.jp</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.zhcn_zhtw_conversion">
+  <bibliosource><link xl:href="http://www.j4.com.tw/big-gb/">简繁转换</link></bibliosource>
+  <author>j4</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.unicode_lookup">
+  <bibliosource><link xl:href="http://unicodelookup.com/">Unicode Lookup</link></bibliosource>
+  <author>Jonathan Hedley</author>
+</bibliomixed>
+
+<bibliomixed xml:id="ref.python_str_2x_vs_3x">
+  <bibliosource><link xl:href="http://www.crifan.com/summary_python_string_encoding_decoding_difference_and_comparation_python_2_x_str_unicode_vs_python_3_x_bytes_str">【整理】Python中字符编码的总结和对比：Python 2.x的str和unicode vs Python 3.x的bytes和str</link></bibliosource>
+  <author>Crifan Li</author>
+</bibliomixed>
+
+</bibliography>

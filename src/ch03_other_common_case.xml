@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE chapter [
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" "http://www.crifan.com/files/res/docbook/entity/crl.ent">
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:mathml="http://www.w3.org/1998/Math/MathML"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:svg="http://www.w3.org/2000/svg"
+
+    xml:id="ch03_other_common_case">
+<title>Python中常见的字符串和编码等相关的处理</title>
+<abstract></abstract>
+
+<tip xml:id="tip.other_common_case"><title>相关旧帖</title>
+    <para><link xl:href="http://www.crifan.com/python_convert_string_to_function_then_call">【已解决】Python中，将字符串转换为函数，并且实现带参数的函数调用</link></para>
+</tip>
+
+<sect1 xml:id="unicode_enc_dec"><title>Python中的反斜杠u类型（\uXXXX）的字符串</title>
+    <tip xml:id="tip.backslash_u_unicode"><title>相关旧帖</title>
+        <para><link xl:href="http://www.crifan.com/python_decode_slash_u_unicode_escape_string_into_unicode_chars">【整理】Python中，如何将反斜杠u类型（\uXXXX）的字符串，转换为对应的unicode的字符</link></para>
+    </tip>
+
+    <para></para>
+    <para></para>
+</sect1>
+
+<sect1 xml:id="str_format_pretty"><title>Python中字符串的格式化</title>
+    <tip xml:id="tip.str_format_pretty"><title>相关旧帖</title>
+        <para><link xl:href="http://www.crifan.com/format_dictionary_list_variable_into_prettified_tree_like_with_indent_json_string_then_output">【整理】Python中将（字典，列表等）变量格式化成（漂亮的，树形的，带缩进的，JSON方式的）字符串输出</link></para>
+        <para><link xl:href="http://www.crifan.com/python_module_pprint">【记录】折腾Python中的pprint</link></para>
+        <para><link xl:href="http://www.crifan.com/python_string_format_fill_with_chars_and_set_alignment">【已解决】Python中，带填充和设置对齐方式的，格式化字符串输出</link></para>
+    </tip>
+
+    <para></para>
+    <para></para>
+</sect1>
+
+<sect1 xml:id="html_related"><title>Python中处理HTML</title>
+    <tip xml:id="tip.html_related"><title>相关旧帖</title>
+        <para><link xl:href="http://www.crifan.com/python_decode_html_entity_and_convert_between_name_entity_and_code_point_entity">【整理】Python中解码（decode）HTML中的实体（entity）+ 将name entity转为code point entity + 将code point entity转为name entity</link></para>
+    </tip>
+    <para></para>
+    <para></para>
+</sect1>
+
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+
+</chapter>

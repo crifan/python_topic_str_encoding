@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding="utf-8"?>
+
+<!DOCTYPE book
+[
+
+<!ENTITY cur_book_name      "python_topic_str_encoding" >
+<!ENTITY publish_date       "2015-05-26" >
+<!ENTITY release_version    "1.2.1" >
+
+<!ENTITY copyrith_year "2015" >
+<!ENTITY entity_common_multi_format     SYSTEM  "../../entity_common_multi_format.xml">
+<!ENTITY entity_common_publish_info     SYSTEM  "../../entity_common_publish_info.xml">
+]>
+
+<book version="5.0"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    
+    xml:lang="zh_CN">
+
+<info>
+    <title>Python专题教程：字符串和字符编码</title>
+    <subtitle></subtitle>
+    <keywordset>
+        <keyword>Python</keyword>
+        <keyword>专题教程</keyword>
+        <keyword>字符串</keyword>
+        <keyword>字符编码</keyword>
+    </keywordset>
+
+    <abstract>
+        <para>本文是针对Python的中级开发人员，介绍Python中的字符串和字符编码方面的知识，主要包括Python 2.x的str和unicode以及Python 3.x的bytes和str，Python中常见字符编码和解码方面的错误及其解决办法，以及其他一些常见的字符串方面的处理，比如格式化为树形输出，HTML的Entity实体等等</para>
+        &entity_common_multi_format;
+    </abstract>
+
+    <revhistory>
+        <revision>
+            <revnumber>&release_version;</revnumber>
+            <date>&publish_date;</date>
+            <revremark>
+                <orderedlist>
+                    <listitem>把之前教程的地址整理过来</listitem>
+                    <listitem>添加新帖子的链接</listitem>
+                    <listitem>增加新的章节：总结</listitem>
+                </orderedlist>
+            </revremark>
+            <authorinitials>crl</authorinitials>
+        </revision>
+    </revhistory>
+
+    &entity_common_publish_info;
+</info>
+
+<xi:include href="preface.xml" />
+<xi:include href="ch01_string_2x_vs_3x.xml" />
+<xi:include href="ch02_common_encoding_error.xml" />
+<xi:include href="ch03_other_common_case.xml" />
+<xi:include href="reference.xml" />
+
+</book>

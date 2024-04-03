@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE chapter [
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" "http://www.crifan.com/files/res/docbook/entity/crl.ent">
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:mathml="http://www.w3.org/1998/Math/MathML"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:svg="http://www.w3.org/2000/svg"
+
+    xml:id="ch01_string_2x_vs_3x">
+<title>Python 2.x的str和unicode vs. Python 3.x的bytes和str</title>
+<abstract></abstract>
+
+<tip xml:id="tip.string_2x_vs_3x"><title>相关旧帖</title>
+    <para><link xl:href="http://www.crifan.com/summary_python_string_encoding_decoding_difference_and_comparation_python_2_x_str_unicode_vs_python_3_x_bytes_str">【整理】Python中字符编码的总结和对比：Python 2.x的str和unicode vs Python 3.x的bytes和str</link></para>
+    <para><link xl:href="http://www.crifan.com/python_3_x_auto_handle_string_encode_and_decode_to_and_from_unicode_then_output_to_cmd">【整理】关于Python 3.x 中自动识别字符串编码，并正确在cmd中输出的各种情况的测试</link></para>
+</tip>
+
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+</chapter>

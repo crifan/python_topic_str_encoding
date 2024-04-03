@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE chapter [
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" "http://www.crifan.com/files/res/docbook/entity/crl.ent">
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:mathml="http://www.w3.org/1998/Math/MathML"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:svg="http://www.w3.org/2000/svg"
+
+    xml:id="ch02_common_encoding_error">
+<title>Python中常见字符编码和解码方面的错误及其解决办法</title>
+<abstract></abstract>
+
+<tip xml:id="tip.common_encoding_error"><title>相关旧帖</title>
+    <para><link xl:href="http://www.crifan.com/summary_python_2_x_common_string_encode_decode_error_reason_and_solution">【总结】Python 2.x中常见字符编码和解码方面的错误及其解决办法</link></para>
+    <para><link xl:href="http://www.crifan.com/python_string_encoding_declare_encoding_vs_file_real_encoding/">【整理】Python中用encoding声明的文件编码和文件的实际编码之间的关系</link></para>
+    <para><link xl:href="http://www.crifan.com/summary_python_unicodedecode_error_possible_reasons_and_solutions/">【整理】Python中遇到"UnicodeDecodeError: ‘gbk’ codec can’t decode bytes in position 2-3: illegal multibyte sequence"之类的编码或解码的错误时如何处理</link></para>
+    <para><link xl:href="http://www.crifan.com/python_unicodedecodeerror_codec_can_not_decode_byte_in_position_ordinal_not_in_range">【已解决】Python字符串处理出现错误：UnicodeDecodeError: 'ascii' codec can't decode byte 0xe6 in position 0: ordinal not in range(128)</link></para>
+</tip>
+
+<para></para>
+<para></para>
+<para></para>
+
+<sect1 xml:id="python_unicodeencodeerror"><title>Python中的 UnicodeEncodeError</title>
+    <para>Python中很容易出现一些关于编码方面的错误。</para>
+    <para>其中，最常见的一个就是UnicodeEncodeError</para>
+    <para>下面，总结一下各种出现的原因，以及相应的解决办法。</para>
+
+    <sect2 xml:id="python_uni_error_while_print"><title>如果打印显示终端中字符编码不支持所打印字符的话，也会出现错误UnicodeEncodeError</title>
+        <para>Python中的编码问题，的确很容易让人头疼。</para>
+        <para>之前已经遇到过N个类似的UnicodeEncodeError，并且也都一一解决了。</para>
+        <para>但是今天又遇到一个：</para>
+        <screen>UnicodeEncodeError: 'gbk' codec can't encode character u'\u2665' in position 160: illegal multibyte sequence</screen>
+        <para>最后发现，原来是在用：<programlisting language="python">print "footerUni=",footerUni;</programlisting>去打印此unicode类型的字符串footerUni，由于其中包含一些字符，其无法在当前命令行下的GBK编码环境中找到对应字符，所以才报了以上的错误的。</para>
+        <para>所以，真的是，对于Python中的字符编码方面，连使用print都要小心。</para>
+        <para>在这点上，真的很让人无语。。。</para>
+    </sect2>
+    
+    <sect2 xml:id="unicodeencodeerror_zhcn_zhtw"><title>在处理中文简体和中文繁体的的时候，使用目标编码中不存在的中文字符，也会导致UnicodeEncodeError</title>
+        <para>在一个UTF-8的Python文件中，有如下代码：</para>
+        <programlisting language="python">
+str = '电脑';
+......
+goods.append(urllib.quote(str.decode('utf-8').encode('big5')));
+        </programlisting>
+        <para>此时，就会出现错误：</para>
+        <screen>UnicodeEncodeError: 'big5' codec can't encode character u'\u7535' in position 0: illegal multibyte sequence</screen>
+        <para>此问题的原因在于，对于所输入的str类型的中文简体字符”电脑“来说，虽然通过str.decode('utf-8')可以获得了Unicode的中文简体字符”电脑“</para>
+        <para>但是将此Unicode类型的，简体中文字符”电脑“，去进行BIG5编码的时候，结果由于BIG5编码中，根本就不存在上述这两个简体中文的汉字”电脑“，由此出现上述UnicodeEncodeError的错误。</para>
+        <para>即，无法将简体中文的”电脑“，从Unicode转换为BIG5编码，因为BIG5编码字符集中，就不存在”电脑“这两个字符。</para>
+        <para>对此问题，详细去探究，就可以更了解中文简体和中文繁体之间的差别。</para>
+        <para>此处，先来明确一下我们的目标，即，希望是在BIG5编码中，能显示”电脑“这两个字符。</para>
+        <para>而对于BIG5编码所对应的所有字符，可以去<link xl:href="http://ash.jp/code/cn/big5tbl.htm">Big5 (Traditional Chinese) character code table</link>中查找</para>
+        <para>我们会发现，BIG5编码中，根据就找不到这两个字符。</para>
+        <para>那如何才能让”电脑“这两个字符，在繁体中显示呢？</para>
+        <para>那就需要，将中文简体的”电脑“，去先转换为对应的中文繁体字，然后就可以编码为BIG5，可以显示了。</para>
+        <para>而关于中文简体和中文繁体之间的转换，可以去这里：</para>
+        <para><link xl:href="http://www.j4.com.tw/big-gb/">简繁转换</link></para>
+        <para>进入该网站后，输入”电脑“，然后点击”TW Unicode“或”TW BIG“，就可以转换为对应的繁体字”電腦“了。</para>
+        <para>很明显，”電腦“这两个中文繁体字，那肯定是能在<link xl:href="http://ash.jp/code/cn/big5tbl.htm">Big5 (Traditional Chinese) character code table</link>中找到的</para>
+        <para>而对应的，这几个中文字符所对应的Unicode的值，可以去<link xl:href="http://unicodelookup.com/">Unicode Lookup</link>查到。</para>
+        <para>此处整理如下：</para>
+        <table xml:id="tbl.zh_computer_uni_val"><title>”电脑“和”電腦“所对应的Unicode值</title>
+            <tgroup cols="5">
+                <colspec colnum="1" colname="col1" colwidth="2*" />
+                <colspec colnum="2" colname="col2" colwidth="1*" />
+                <colspec colnum="3" colname="col3" colwidth="1*" />
+                <colspec colnum="4" colname="col4" colwidth="1*" />
+                <colspec colnum="5" colname="col5" colwidth="1*" />
+                
+                <thead>
+                    <row><entry>Unicode character</entry><entry>Oct</entry><entry>Dec</entry><entry>Hex</entry><entry>HTML</entry></row>
+                </thead>
+                
+                <tbody>
+                    <row><entry>电 cjk unified ideograph 7535</entry><entry>072465</entry><entry>30005</entry><entry>0x7535</entry><entry>&amp;#30005;</entry></row>
+                    <row><entry>脑 cjk unified ideograph 8111</entry><entry>0100421</entry><entry>33041</entry><entry>0x8111</entry><entry>&amp;#33041;</entry></row>
+                    <row><entry>電 cjk unified ideograph 96fb</entry><entry>0113373</entry><entry>38651</entry><entry>0x96FB</entry><entry>&amp;#38651;</entry></row>
+                    <row><entry>腦 cjk unified ideograph 8166</entry><entry>0100546</entry><entry>33126</entry><entry>0x8166</entry><entry>&amp;#33126;</entry></row>
+                </tbody>
+            </tgroup>
+        </table>
+        <para>此处，“电”所对应的Unicode值为7535，Unicode写法为\u7535，就是对应着上述出错的内容中所指示的，</para>
+        <para>BIG5编码器，无法对于Unicode为\u7535的字符进行编码，即BIG5无法编码“电”，因为其本身就没这个字符。</para>
+        <para>对应的，如果用GB2312/GBK/GB18030去编码“电”，那么肯定是可以的，但是肯定也是无法编码“電”的。</para>
+        <para>所以，对于中文简体和繁体之间，如果想要正确显示，需要先转换为对应繁体或简体，然后才能用正确的编码，去解析其所支持的字符的。</para>
+        <para>而有人看到这里，可能会疑惑了，因为比如对于有些中文字符，比如“手机”，</para>
+        <para>虽然没有去用什么简体转换为繁体，而直接用上述BIG5去编码，会发现程序可以正常执行，不会出现那个UnicodeEncodeError的</para>
+        <para>对此，你去<link xl:href="http://www.j4.com.tw/big-gb/">简繁转换</link>中搜一下“手”和“机”这两个汉字，发现BIG5编码中，也的确是存在这两个汉字的，</para>
+        <para>所以原因就很清楚了：对于有些字符，中文简体和中文繁体的写法，是一样的，所以才可以在GB212/GBK/GB18030和BIG5之间来回转换，而不会出现问题。</para>
+        <para>换句话说，如果你想要在BIG5编码中显示（编码）某个中文简体的话，那前提要确保该字符是可以在<link xl:href="http://www.j4.com.tw/big-gb/">简繁转换</link>中能查找到的。</para>
+        <para>否则，说明BIG5中没有改汉字，需要用到<link xl:href="http://www.j4.com.tw/big-gb/">简繁转换</link>去先进行简繁体转换，得到转换后的繁体字后，才能得到BIG5编码的字符，用BIG5去编解码，去显示对应的繁体中文。</para>
+        <para>上述步骤，很明显，可以省略了去BIG5编码表中查找，而直接利用上述简繁体转换的网站去实现转换，或者本地建立一个转换表，直接从输入的中文简体，得到输出的中文繁体，即可继续后续处理，而无需关注，在简体和繁体中，哪些是一样的写法，哪些是不一样的写法。</para>
+    </sect2>
+</sect1>
+
+<sect1 xml:id="python_str_decode"><title>str的解码decode</title>
+    <para>decode函数，是str类型变量本身就有的函数，用于实现将某种编码的字符，解码为Unicode类型字符。</para>
+    <para>将某种编码的str字符解码为Unicode字符，通常做法为：</para>
+    <programlisting language="python">
+defCmtCharset = "GB18030";
+dataJsonStrUni = dataJsonStr.decode(defCmtCharset);
+    </programlisting>
+    <para>不过，上述用法，是在你知道了字符编码的前提下，才能这么做的。</para>
+    <para>如果是对于输入的字符串，可能是多种不同的编码，即无法确定输入字符编码的前提下，想要对其解码的话，可以这么实现：</para>
+    <para>先利用chardet判断字符编码类型，然后再去解码：</para>
+    <programlisting language="python">
+possibleCharset = crifanLib.getStrPossibleCharset(dataJsonStr);
+dataJsonStrUni = dataJsonStr.decode(possibleCharset);
+    </programlisting>
+    <para>其中getStrPossibleCharset是我自己写的函数</para>
+    <para>详见：<link xl:href="http://www.crifan.com/files/doc/docbook/crifanlib_python/release/html/crifanlib_python.html#getstrpossiblecharset">getStrPossibleCharset函数详解</link></para>
+    <para>但是，有时候，你会发现，即使如此，也可能遇到decode失败的情况。</para>
+    <para>因为有时候所输入的字符串，本身不完全是某种单一的编码，而是2种或更多种不同的编码的混合体，此时，此处通过getStrPossibleCharset中的chardet所得到的值，就未必是0.99,而可能是某个很低的值，比如0.6，此时用此编码去解码，就可能遇到失败的情况了。</para>
+    <para>这种变态的，多种编码混合的字符串，我之前就在折腾给<link xl:href="http://www.crifan.com/crifan_released_all/website/python/blogstowordpress/">BlogsToWordpress</link>添加QQ空间支持的过程中，处理QQ空间帖子的评论数据中，就遇到过。</para>
+    <para>当时很是郁闷，无法有效解决此问题，导致对于有些帖子的评论数据，无法继续处理。</para>
+    <para>直到后来，直到对于decode函数来说，还有个ignore参数，可以实现，在解码过程中，对于那些（用当前编码）无法解码的，不支持的字符，采取忽略的策略，而使得不会出现解码失败，然后最终可以成功解码整个字符串。</para>
+    <para>对应的函数详细解释，在Python的帮助文档中可以找到：</para>
+    <blockquote>
+        <formalpara><title>str.decode([encoding[, errors]])</title>
+            <para>Decodes the string using the codec registered for encoding. encoding defaults to the default string encoding. errors may be given to set a different error handling scheme. The default is 'strict', meaning that encoding errors raise UnicodeError. Other possible values are 'ignore', 'replace' and any other name registered via codecs.register_error(), see section Codec Base Classes.</para>
+            <para>New in version 2.2.</para>
+            <para>Changed in version 2.3: Support for other error handling schemes added.</para>
+            <para>Changed in version 2.7: Support for keyword arguments added.</para>
+        </formalpara>
+    </blockquote>
+    <para>然后，上述的代码，改为：</para>
+    <programlisting language="python">
+defCmtCharset = "GB18030";
+dataJsonStrUni = dataJsonStr.decode(defCmtCharset, 'ignore');
+    </programlisting>
+    <para>即可实现，对于绝大多数的GB18030的中文字符，都可以正确解码为Unicode字符了。</para>
+    <para>即使遇到一些变态的混合型编码的字符（比如其中一部分是ISO-8859-2编码，其他部分是其他的某种编码），也不会出现decode出错，而使得代码可以继续运行了。</para>
+    <para>当然，需要注意一点的是，我这里，其中被ignore的个别特殊字符，由于是在评论的数据中的个别特殊字符，所以不重要，忽略了也无所谓，所以才可以使用ignore参数的。要是你的代码中，不允许忽略任何内容，那你就得想其他办法了。</para>
+</sect1>
+</chapter>

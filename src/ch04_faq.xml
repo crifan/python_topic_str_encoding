@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE chapter [
+
+<!ENTITY % crl_ent PUBLIC "crl.ent" "http://www.crifan.com/files/res/docbook/entity/crl.ent">
+%crl_ent;
+
+]>
+
+<chapter
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xl="http://www.w3.org/1999/xlink"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:mathml="http://www.w3.org/1998/Math/MathML"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:svg="http://www.w3.org/2000/svg"
+
+    xml:id="ch04_faq">
+<title>Python中常见的字符串和编码等相关的处理</title>
+<abstract></abstract>
+
+<qandaset>
+    <qandaentry xml:id="qa.already_unicode_print_with_list_show_u_slash">
+        <question>
+            <para>将已经获得的变量中的Unicode的字符串去print显示，却由于在列表中，结果显示出u\xxxx形式，以为是乱码</para>
+        </question>
+        <answer>
+            <para><link xl:href="http://www.oschina.net/question/103060_127909">用python如何把unicode码转成汉字</link></para>
+            <para>实际上已经是汉字，但是由于其不了解原理：</para>
+            <para>输出一个对象，默认内部调用的是__str__</para>
+            <para>所以打印一个此处的dict变量，输出是效果是其看到的：字符串是unicode的，用u&quot;\xxxx&quot;表示</para>
+            <para></para>
+            <para>之前我已回复该帖：</para>
+            <para>很明显，你是直接去print一个对象，此处即一个dict变量</para>
+            <para>从而导致看到的是字符串的内部的unicode形式，而不是你所期望看到的，中文字符</para>
+            <para>可以去：</para>
+            <screen><![CDATA[printyourInfoDict['a'][1]]]></screen>
+            <para>就可以看到是输出汉字了。</para>
+            <para></para>
+            <para>更多解释，参见：</para>
+            <para><link xl:href="http://www.crifan.com/python_already_got_correct_encoding_string_but_seems_print_messy_code/">【整理】Python中实际上已经得到了正确的Unicode或某种编码的字符，但是看起来或打印出来却是乱码</link></para>
+            <para><link xl:href="http://www.crifan.com/beautifulsoup_already_got_unicode_soup_but_print_messy_code/">【已解决】BeautifulSoup已经获得了Unicode的Soup但是print出来却是乱码</link></para>
+            <para></para>
+        </answer>
+    </qandaentry>
+
+</qandaset>
+
+</chapter>
